@@ -10,9 +10,8 @@ Shader "Custom/Platform"
 
 		SubShader{
 		Tags{ "Queue" = "Transparent" "IgnoreProjector" = "True" "RenderType" = "Transparent" }
-		ZWrite Off
-		Blend SrcAlpha OneMinusSrcAlpha
-		Cull Off
+		ZWrite On
+		Cull Back
 		LOD 100
 
 		Pass{
@@ -26,6 +25,7 @@ Shader "Custom/Platform"
 		struct appdata_t {
 		float4 vertex : POSITION;
 		float3 normal : NORMAL;
+		float4 color  : COLOR;
 	};
 
 	struct v2f {
@@ -42,7 +42,7 @@ Shader "Custom/Platform"
 		o.vertex = UnityObjectToClipPos(v.vertex);
 		float4 pos = v.vertex;
 		pos.y -= _HeightOffset;
-		o.color.xyz = (((dot(-v.normal, normalize(pos)) + 1.0) * 0.5)) * _Intensity * _Color;
+		o.color.xyz = (((dot(-v.normal, normalize(pos)) + 1.0) * 0.5)) * _Intensity * _Color + v.color.rgb;
 		o.color.w = _Color.a;
 		return o;
 	}
