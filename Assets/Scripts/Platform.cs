@@ -93,7 +93,11 @@ public class Platform : MonoBehaviour
     {
         int TILE_NUM = TILE_X_COUNT * TILE_Z_COUNT;
 
-        vertices = new Vector3[TILE_NUM * vnum_per_tile];
+        int total_vnum = 9 * TILE_X_COUNT * TILE_Z_COUNT + 3 * TILE_X_COUNT + 3 * TILE_Z_COUNT + 1;
+
+        vertices = new Vector3[total_vnum];
+
+
         for( int z = 0; z < TILE_Z_COUNT; ++z )
         {
             for (int x = 0; x < TILE_X_COUNT; ++x)
